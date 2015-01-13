@@ -1436,12 +1436,12 @@
             };
         }
 
-        
+
         var countryDefault = Big('0.0');
         if (countryCode in rates.BY_COUNTRY) {
             countryDefault = rates.BY_COUNTRY[countryCode].rate;
         }
-        
+
 
         if (!(countryCode in POSTAL_CODE_EXCEPTIONS)) {
             return {
@@ -1646,7 +1646,7 @@
     /**
      * If using bigmoney.js, this will set up the exchange rate data. This
      * exchange rate data should be from the European Central Bank.
-     * 
+     *
      * If using the vat_moss Python library, it can be fetched via a call to
      * vat_moss.exchange_rates.fetch().
      *
@@ -1658,7 +1658,6 @@
             base: base,
             rates: rates
         };
-        Money.formatter = exchangeRates.format;
     }
 
 
