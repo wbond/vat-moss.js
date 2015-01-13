@@ -10,7 +10,7 @@ VAT ID and fetching ECB exchange rates.
 
 ## Runtime Dependencies
 
- - [big.js](https://github.com/MikeMcl/big.js/) 3.x
+ - **Required:** [big.js](https://github.com/MikeMcl/big.js/) 3.x
  - **Optional:** [bigmoney.js](https://github.com/demchenkoe/bigmoney.js/)
 
 ## API
@@ -20,8 +20,22 @@ VAT ID and fetching ECB exchange rates.
  - [Determine VAT Rate from GeoLite2 Database](#determine-vat-rate-from-geolite2-database)
  - [Determine VAT Rate from International Phone Number](#determine-vat-rate-from-international-phone-number)
  - [Check VAT ID Formatting](#check-vat-id-formatting)
- - [Configure bigmoney.js Package Exchange Rates](#configure-money-package-exchange-rates)
+ - [Configure bigmoney.js Exchange Rates](#configure-bigmoneyjs-exchange-rates)
  - [Format European Currencies for Invoices](#format-european-currencies-for-invoices)
+
+### Determine VAT Rate from Billing Address
+
+### Determine VAT Rate from Declared Residence
+
+### Determine VAT Rate from GeoLite2 Database
+
+### Determine VAT Rate from International Phone Number
+
+### Check VAT ID Formatting
+
+### Configure bigmoney.js Exchange Rates
+
+### Format Eurpean Currencies for Invoices
 
 ## Tests
 
