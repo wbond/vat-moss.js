@@ -10,7 +10,7 @@ software to customers in the EU and Norway. Functionality includes:
    - Telephone number
  - Checking EU and Norwegian VAT IDs against basic formatting rules
  - Tools for generating VAT-compliant invoices:
-   - Configuring exchange rate information for the `bigmoney.js` library
+   - Configuring exchange rate information for the *bigmoney.js* library
    - Formatting foreign currencies when displaying VAT tax due in national currency
 
 This library has codified all of the standard rate VAT tax rules as of January
@@ -39,8 +39,8 @@ Hopefully the information below will prove useful to others:
 
 ## Runtime Dependencies
 
- - **Required:** [big.js](https://github.com/MikeMcl/big.js/) 3.x
- - **Optional:** [bigmoney.js](https://github.com/demchenkoe/bigmoney.js/)
+ - **Required:** [big.js](https://github.com/MikeMcl/big.js) 3.x
+ - **Optional:** [bigmoney.js](https://github.com/demchenkoe/bigmoney.js)
 
 ## API
 
@@ -257,9 +257,143 @@ thrown.
 
 ### Check VAT ID Formatting
 
+EU businesses do not need to be charged VAT. Instead, under the VAT reverse
+charge mechanism, you provide them with an invoice listing the price of your
+digital services, and they are responsible for figuring out the VAT due and
+paying it, according to their normal accounting practices.
+
+The way to determine if a customer in the EU is a business is to validate their
+VAT ID. **Unfortunately full validation can not happen in the browser since
+the relevant webservices do no allow cross-domain requests.**
+
+The function `vatMoss.id.check()` will use patterns to check if the VAT ID
+appears to be properly formatted. If the function returns one of the following:
+
+ - `null` when the VAT ID is for a country other than an EU member state or Norway
+ - an object with the keys `vatId` and `countryCode` if the VAT ID looks generally valid
+ - throws a `vatMoss.errors.InvalidError()` exception if the VAT ID looks invalid
+
+If an object is returned, an AJAX request should be sent to your server, which
+can use the `vat_moss.id.validate()` function in the
+[Python `vat_moss` package](https://github.com/wbond/vat_moss-python).
+
+VAT IDs should contain the two-character country code. See
+http://en.wikipedia.org/wiki/VAT_identification_number for more info. The VAT
+ID can have spaces, dashes or periods within it.
+
+```js
+try {
+    // From user input
+    var vatId = 'GB GD001';
+
+    var result = vatMoss.id.check(vatId);
+
+    if (result) {
+        // Send a request to server to fully validate VAT ID, then if that
+        // validation is successful, update checkout system to not charge VAT
+    }
+
+} catch (e) {
+    // vatMoss.errors.InvalidError - Make the user enter a new value
+}
+```
+
 ### Configure bigmoney.js Exchange Rates
 
+The [bigmoney.js](https://github.com/demchenkoe/bigmoney.js) library is a
+reasonable choice for working with monetary values since it uses
+[big.js](https://github.com/MikeMcl/big.js) to acurately represent amounts. The
+`vatMoss.exchangeRates` namespace includes a function that will use the
+exchange rates from the ECB to configure the exchange rates for *bigmoney.js*.
+
+The first parameter is the base currency, which should always be `EUR` when
+working with the data from the ECB. The second parameter should be an object
+with the keys being three-character currency codes and the values being
+`Big` objects representing the rates.
+
+*The `vat_moss.exchange_rates.fetch()` function in the
+[Python `vat_moss` package](https://github.com/wbond/vat_moss-python) can be
+used to retrieve exchange rates. Generally they should be cached locally and
+embedded in the page to use with JS. The rates only change once a day on
+business days.*
+
+Here is an example of code you could put in the footer of your checkout pages.
+
+```html
+<script>
+$(function() {
+    vatMoss.exchangeRates.setMoneySettings(
+        'EUR',
+        {
+            'EUR': Big('1.0000'),
+            'USD': Big('1.1782'),
+            'GBP': Big('0.77670')
+        }
+    );
+});
+</script>
+```
+
+Now you can work with `Money` objects and convert to different currencies.
+
+```js
+$(function() {
+    var usd = Money('100.00', 'USD');
+    var eur = usd.convert('EUR');
+});
+```
+
 ### Format Eurpean Currencies for Invoices
+
+With the laws concerning invoices, it is necessary to show at least the VAT tax
+due in the national currency of the country where your customer resides. To
+help in properly formatting the currency amount for the invoice, the
+`vatMoss.exchangeRates.format(amount, currency)` function exists.
+
+This function accepts either a *bigmoney.js* `Money` object, or a `Big` object
+plus a string three-character currency code. It returns the amount formatted
+using the local country rules for amounts. For currencies that share symbols,
+such as the Danish Krone, Swedish Krona and Norwegian Krone, the symbols are
+modified by adding the country initial before `kr`, as is typical in English
+writing.
+
+```js
+// Using a Money object
+var amount = Money('4101.79', 'USD')l
+console.log(vatMoss.exchangeRates.format(amount));
+
+// Using a decimal and currency code
+var amount = Big('4101.79');
+var currency = 'USD';
+console.log(vatMoss.exchangeRates.format(amount, currency));
+```
+
+To enable automatic formatting of *bigmoney.js* `Money` objects, execute the
+following upon page setup.
+
+```js
+Money.formatter = vatMoss.exchangeRates.format;
+
+var amount = Money('4101.79', 'USD');
+console.log(amount.format());
+```
+
+The various output formats that are returned by this function include:
+
+| Currency | Output                  |
+| -------- | ----------------------- |
+| BGN      | 4,101.79 Lev            |
+| CZK      | 4.101,79 Kč             |
+| DKK      | 4.101,79 Dkr            |
+| EUR      | €4.101,79               |
+| GBP      | £4,101.79               |
+| HRK      | 4.101,79 Kn             |
+| HUF      | 4.101,79 Ft             |
+| NOK      | 4.101,79 Nkr            |
+| PLN      | 4 101,79 Zł             |
+| RON      | 4.101,79 Lei            |
+| SEK      | 4 101,79 Skr            |
+| USD      | $4,101.79               |
 
 ## Tests
 
