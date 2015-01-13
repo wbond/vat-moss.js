@@ -337,10 +337,8 @@ $(function() {
 Now you can work with `Money` objects and convert to different currencies.
 
 ```js
-$(function() {
-    var usd = Money('100.00', 'USD');
-    var eur = usd.convert('EUR');
-});
+var usd = Money('100.00', 'USD');
+var eur = usd.convert('EUR');
 ```
 
 ### Format Eurpean Currencies for Invoices
