@@ -11,6 +11,7 @@ VAT ID and fetching ECB exchange rates.
 ## Runtime Dependencies
 
  - [big.js](https://github.com/MikeMcl/big.js/) 3.x
+ - *Optional:* [bigmoney.js](https://github.com/demchenkoe/bigmoney.js/)
 
 ## API
 
