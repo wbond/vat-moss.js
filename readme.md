@@ -1,4 +1,4 @@
-# vat-moss-js
+# vat-moss.js
 
 A Javascript library for VAT MOSS tasks required of non-EU companies selling
 software to customers in the EU and Norway. Functionality includes:
