@@ -103,7 +103,7 @@ exports.calculateRateInvalid = dataprovider(
     function (test, data) {
         test.throws(function() {
             var res = vatMoss.billingAddress.calculateRate(data[0], data[1], data[2]);
-        }, vatMoss.errors.ValueException);
+        }, vatMoss.errors.ValueError);
         test.done();
     }
 );

@@ -57,7 +57,7 @@ exports.checkInvalidId = dataprovider(
     function (test, data) {
         test.throws(function() {
             var res = vatMoss.id.check(data[0]);
-        }, vatMoss.errors.InvalidException);
+        }, vatMoss.errors.InvalidError);
         test.done();
     }
 );
