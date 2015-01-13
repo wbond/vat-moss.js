@@ -54,11 +54,206 @@ Hopefully the information below will prove useful to others:
 
 ### Determine VAT Rate from Billing Address
 
+The user's VAT Rate can be determined by processing a payment and using the
+billing address returned by the payment provider.
+
+The method signature is
+`vatMoss.billingAddress.calculateRate(countryCode, postalCode, city)`.
+This will return an object with the keys:
+
+ - `rate` - a `Big` object representing the tax rate
+ - `countryCode` - the country the tax rate is based on (with exception this doesn't always matching billing address country)
+ - `exceptionName` - if the address is detected as being in a VAT exception area, that name of the exception, else `null`
+
+The exception name will be one of the exemptions to the normal VAT rates. See
+the end of http://ec.europa.eu/taxation_customs/resources/documents/taxation/vat/how_vat_works/rates/vat_rates_en.pdf
+for a full list.
+
+```js
+try {
+    // Values from payment provider
+    var countryCode = 'US';
+    var postalCode = '01950';
+    var city = 'Newburyport';
+
+    var result = vatMoss.billingAddress.calculateRate(countryCode, postalCode, city);
+
+    // Combine with other rate detection and then show user tax rate/amount
+
+} catch (e) {
+    // vatMoss.errors.ValueError - One of the user input values is empty or not a string
+}
+```
+
+For place of supply proof, you should save the country code, postal code, city
+name, detected rate and any exception name.
+
 ### Determine VAT Rate from Declared Residence
+
+The user's VAT Rate can be determined by prompting the user with a list of
+valid countries obtained from `vatMoss.declaredResidence.options()`. If the
+user chooses a country with one or more exceptions, the user should be
+presented with another list of "None" and each exception name. This should be
+labeled something like: "Special VAT Rate".
+
+The method signature to get the appropriate rate is
+`vatMoss.declaredResidence.calculateRate(countryCode, exceptionName)`.
+This will return an object with the keys:
+
+ - `rate` - a `Big` object representing the tax rate
+ - `countryCode` - the country the tax rate is based on (with exception this doesn't always matching billing address country)
+ - `exceptionName` - if the address is detected as being in a VAT exception area, that name of the exception, else `null`
+
+The exception name will be one of the exemptions to the normal VAT rates. See
+the end of http://ec.europa.eu/taxation_customs/resources/documents/taxation/vat/how_vat_works/rates/vat_rates_en.pdf
+for a full list.
+
+```js
+try {
+    // Loop through this array of objects and build a <select> using the 'name'
+    // key as the text and 'code' key as the value. The 'exceptions' key is an
+    // array of valid VAT exception names for that country. You will probably
+    // want to show a checkbox if the selected country has exceptions, and then
+    // present the user with another <select> allowing then to pick "None" or
+    // one of the exception names.
+    var residenceOptions = vatMoss.declaredResidence.options();
+
+    // Values from user input
+    var countryCode = 'DE';
+    var exceptionName = 'Heligoland';
+
+    var result = vatMoss.declaredResidence.calculateRate(countryCode, exceptionName);
+
+    // Combine with other rate detection and then show user tax rate/amount
+
+} catch (e) {
+    // vatMoss.errors.ValueError - One of the user input values is empty or not a string
+}
+```
+
+For place of supply proof, you should save the country code, detected rate and
+any exception name.
 
 ### Determine VAT Rate from GeoLite2 Database
 
+The company MaxMind offers a
+[http://dev.maxmind.com/geoip/geoip2/geolite2/](free geo IP lookup database).
+
+For this you'll need to install something like the [nginx module](https://github.com/leev/ngx_http_geoip2_module),
+[apache module](https://github.com/maxmind/mod_maxminddb) or one of the various
+[programming language packages](http://dev.maxmind.com/geoip/geoip2/web-services/).
+And then make the data available to JS.
+
+Personally I like to do it at the web server level since it is fast and always
+available.
+
+Once you have the data, you need to feed the country code, subdivision name and
+city name into the method
+`vatMoss.geoip2.calculateRate(countryCode, subdivision, city, addressCountryCode, addressException)`.
+The `subdivision` should be the first subdivision name from the GeoLite2
+database. The `addressCountryCode` and `addressException` should be from
+`vatMoss.billingAddress.calculateRate()` or
+`vatMoss.declaredResidence.calculateRate()`. This information is necessary
+since some exceptions are city-specific and can't solely be detected by the
+user's IP address. This will return an object with the keys:
+
+ - `rate` - a `Big` object representing the tax rate
+ - `countryCode` - the country the tax rate is based on (with exception this doesn't always matching billing address country)
+ - `exceptionName` - if the address is detected as being in a VAT exception area, that name of the exception, else `null`
+
+The exception name will be one of the exemptions to the normal VAT rates. See
+the end of http://ec.europa.eu/taxation_customs/resources/documents/taxation/vat/how_vat_works/rates/vat_rates_en.pdf
+for a full list.
+
+```js
+try {
+    // Values from web server or API
+    var ip = '8.8.4.4';
+    var countryCode = 'US';
+    var subdivisionName = 'Massachusetts';
+    var cityName = 'Newburyport';
+
+    // Values from the result of vatMoss.billingAddress.calculateRate() or
+    // vatMoss.declaredResidence.calculateRate()
+    var addressCountryCode = 'US';
+    var addressException = null;
+
+    var result = vatMoss.geoip2.calculateRate(countryCode, subdivisionName, cityName, addressCountryCode, addressException);
+
+    // Save place of supply proof and show user tax rate/amount
+
+} catch (e) {
+    // vatMoss.errors.ValueError - One of the user input values is empty or not a string
+}
+```
+
+For place of supply proof, you should save the IP address; country code,
+subdivision name and city name from GeoLite2; the detected rate and any
+exception name.
+
+#### Omitting addressCountryCode and addressException
+
+If the `addressCountryCode` and `addressException` are not provided, in some
+situations this function will not be able to definitively determine the
+VAT rate for the user. This is because some exemptions are for individual
+cities, which are only tracked via GeoLite2 at the district level. This sounds
+confusing, but if you look at the GeoLite2 data, you'll see some of the city
+entries are actually district names. Lame, I know.
+
+In those situations, a `vatMoss.errors.UndefinitiveError()` exception will be
+thrown.
+
 ### Determine VAT Rate from International Phone Number
+
+Prompt the user for their international phone number (with leading +). Once
+you have the data, you need to feed the phone number to
+`vatMoss.phoneNumber.calculateRate(phoneNumber, addressCountryCode, addressException)`.
+The `addressCountryCode` and `addressException` should be from
+`vatMoss.billingAddress.calculateRate()` or
+`vatMoss.declaredResidence.calculateRate()`. This information is necessary
+since some exceptions are city-specific and can't solely be detected by the
+user's phone number. This will return an object with the keys:
+
+ - `rate` - a `Big` object representing the tax rate
+ - `countryCode` - the country the tax rate is based on (with exception this doesn't always matching billing address country)
+ - `exceptionName` - if the address is detected as being in a VAT exception area, that name of the exception, else `null`
+
+The exception name will be one of the exemptions to the normal VAT rates. See
+the end of http://ec.europa.eu/taxation_customs/resources/documents/taxation/vat/how_vat_works/rates/vat_rates_en.pdf
+for a full list.
+
+```js
+try {
+    // Values from user
+    var phoneNumber = '+19785720330';
+
+    // Values from the result of vatMoss.billingAddress.calculateRate() or
+    // vatMoss.declaredResidence.calculateRate()
+    var addressCountryCode = 'US';
+    var addressException = null;
+
+    var result = vatMoss.phoneNumber.calculateRate(phoneNumber, addressCountryCode, addressException);
+
+    // Save place of supply proof and show user tax rate/amount
+
+} catch (e) {
+    // vatMoss.errors.ValueError - One of the user input values is empty or not a string
+}
+```
+
+For place of supply proof, you should save the phone number, detected rate and
+any exception name.
+
+#### Omitting addressCountryCode and addressException
+
+If the `addressCountryCode` and `addressException` are not provided, in some
+situations this function will not be able to definitively determine the
+VAT rate for the user. This is because some exemptions are for individual
+cities, which can not be definitely determined by the user's phone number area
+code.
+
+In those situations, a `vatMoss.errors.UndefinitiveError()` exception will be
+thrown.
 
 ### Check VAT ID Formatting
 
