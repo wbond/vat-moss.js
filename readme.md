@@ -1,12 +1,41 @@
 # vat_moss
 
-A library to determine the VAT rate for a customer of a company providing
-digital services to individuals in the EU or Norway.
+A Javascript library for VAT MOSS tasks required of non-EU companies selling
+software to customers in the EU and Norway. Functionality includes:
 
-This readme primarily covers the JavaScript `vat_moss` library API. This is
-a client-side port of features from the Python `vat_moss` libaray. Certain
-features can not be directly implemented in the browser, such as validating a
-VAT ID and fetching ECB exchange rates.
+ - Determining the VAT rate for a customer based on any of the following:
+   - Billing address
+   - Declared country of residence
+   - IP address geolocation via a GeoLite2 database
+   - Telephone number
+ - Checking EU and Norwegian VAT IDs against basic formatting rules
+ - Tools for generating VAT-compliant invoices:
+   - Configuring exchange rate information for the `bigmoney.js` library
+   - Formatting foreign currencies when displaying VAT tax due in national currency
+
+This library has codified all of the standard rate VAT tax rules as of January
+2015, and includes code to handle the various VAT exemptions that occur in the
+EU. This was primarily built to support companies selling software licenses or
+SaaS. *Ebook tax rates may be different - this library does not currently
+differentiate for those.*
+
+## Resources
+
+In the process of writing this library, I performed quite a bit of research
+about VAT, VAT MOSS and how to deal with it as a small software company.
+Hopefully the information below will prove useful to others:
+
+ - [VAT MOSS Overview](https://github.com/wbond/vat_moss-python/blob/master/overview.md) -
+   a document discussing the non-code aspects of VAT MOSS, such as general
+   concepts and terms, proof of supply details, exchange rates, invoices,
+   registration and returns
+ - [VAT MOSS Implementation Approach](https://github.com/wbond/vat_moss-python/blob/master/approach.md) -
+   a document discussing how I am using this library and `vat_moss-python` to
+   deal with VAT MOSS
+ - [vat_moss-python](https://github.com/wbond/vat_moss-python) - the original
+   library that this was ported from. The Python library includes extra features
+   that are not possible in the browser, such as full validation of VAT IDs
+   and fetching of exchange rate information.
 
 ## Runtime Dependencies
 
