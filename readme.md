@@ -36,3 +36,13 @@ Test are run by executing:
 ```bash
 node tests.js
 ```
+
+## Minification
+
+If you want a minified version and have node installed on your machine, the
+following command will create it.
+
+```bash
+npm --local install uglify-js
+./node_modules/uglify-js/bin/uglifyjs --compress --mangle -- vat_moss.js > vat_moss.min.js
+```
