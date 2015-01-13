@@ -415,5 +415,5 @@ following command will create it.
 
 ```bash
 npm --local install uglify-js
-./node_modules/uglify-js/bin/uglifyjs --compress --mangle -- vat_moss.js > vat_moss.min.js
+./node_modules/uglify-js/bin/uglifyjs --compress --mangle -- vat-moss.js > vat-moss.min.js
 ```

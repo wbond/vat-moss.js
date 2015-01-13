@@ -1,5 +1,5 @@
 var dataprovider = require('nodeunit-dataprovider');
-var vatMoss = require('../vat_moss.js');
+var vatMoss = require('../vat-moss.js');
 
 exports.checkId = dataprovider(
     [
