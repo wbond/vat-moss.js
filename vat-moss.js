@@ -4,6 +4,8 @@
     // For the browser, we presume big.js is manually included.
     if (typeof window === 'undefined') {
         var Big = require('big.js');
+    } else {
+        var Big = window.Big;
     }
 
     exports.billingAddress = {};
