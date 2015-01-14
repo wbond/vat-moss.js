@@ -1,3 +1,9 @@
+/*!
+ * vat-moss.js v0.9.0
+ * https://github.com/wbond/vat-moss.js
+ * Copyright 2015 Will Bond <will@wbond.net>
+ * Released under the MIT license
+ */
 (function(exports){
 
     // Include big.js when running under node.
@@ -7,6 +13,8 @@
     } else {
         var Big = window.Big;
     }
+
+    exports.version = '0.9.0';
 
     exports.billingAddress = {};
     var billingAddress = exports.billingAddress;
