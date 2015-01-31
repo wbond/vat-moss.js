@@ -1,5 +1,5 @@
 /*!
- * vat-moss.js v0.9.1
+ * vat-moss.js v0.10.0
  * https://github.com/wbond/vat-moss.js
  * Copyright 2015 Will Bond <will@wbond.net>
  * Released under the MIT license
@@ -14,7 +14,7 @@
         var Big = window.Big;
     }
 
-    exports.version = '0.9.1';
+    exports.version = '0.10.0';
 
     exports.billingAddress = {};
     var billingAddress = exports.billingAddress;
@@ -1153,6 +1153,9 @@
         ['Zimbabwe', 'ZW']
     ];
 
+    // An object for mapping country code to name - generated on demand
+    var RESIDENCE_MAP = null;
+
 
     // An object with keys being two-character country codes and values being
     // an array of VAT exceptions for that country
@@ -1788,6 +1791,37 @@
             countryCode: countryCode,
             exceptionName: null
         };
+    }
+
+
+    /**
+     * Returns a country name from the country code
+     *
+     * @param {string}  countryCode  The country code
+     *
+     * @throws {errors.ValidError}  If the countryCode is invalid or did not match a country from declaredResidence.options()
+     * @return {string}  The country name
+     */
+    exports.countryName = function(countryCode) {
+
+        if (!countryCode || typeof(countryCode) !== 'string' || countryCode.length != 2) {
+            throw new errors.ValueError('Invalidly formatted country code');
+        }
+
+        countryCode = countryCode.toUpperCase();
+
+        if (!RESIDENCE_MAP) {
+            RESIDENCE_MAP = {};
+            for (var i=0; i < RESIDENCE_OPTIONS.length; i++) {
+                RESIDENCE_MAP[RESIDENCE_OPTIONS[i][1]] = RESIDENCE_OPTIONS[i][0];
+            }
+        }
+
+        if (countryCode in RESIDENCE_MAP) {
+            return RESIDENCE_MAP[countryCode];
+        }
+
+        throw new errors.ValueError('Invalid country code');
     }
 
 
