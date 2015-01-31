@@ -1,5 +1,5 @@
 /*!
- * vat-moss.js v0.9.0
+ * vat-moss.js v0.9.1
  * https://github.com/wbond/vat-moss.js
  * Copyright 2015 Will Bond <will@wbond.net>
  * Released under the MIT license
@@ -14,7 +14,7 @@
         var Big = window.Big;
     }
 
-    exports.version = '0.9.0';
+    exports.version = '0.9.1';
 
     exports.billingAddress = {};
     var billingAddress = exports.billingAddress;
@@ -915,7 +915,7 @@
         ['Armenia', 'AM'],
         ['Aruba', 'AW'],
         ['Australia', 'AU'],
-        ['Austria', 'AT', ['Jungholz', 'Mittelberg']],
+        ['Austria', 'AT'],
         ['Azerbaijan', 'AZ'],
         ['Bahamas', 'BS'],
         ['Bahrain', 'BH'],
@@ -983,10 +983,10 @@
         ['Gabon', 'GA'],
         ['Gambia', 'GM'],
         ['Georgia', 'GE'],
-        ['Germany', 'DE', ['Büsingen am Hochrhein', 'Heligoland']],
+        ['Germany', 'DE'],
         ['Ghana', 'GH'],
         ['Gibraltar', 'GI'],
-        ['Greece', 'GR', ['Mount Athos']],
+        ['Greece', 'GR'],
         ['Greenland', 'GL'],
         ['Grenada', 'GD'],
         ['Guadeloupe', 'GP'],
@@ -1010,7 +1010,7 @@
         ['Ireland', 'IE'],
         ['Isle of Man', 'IM'],
         ['Israel', 'IL'],
-        ['Italy', 'IT', ["Campione d'Italia", 'Livigno']],
+        ['Italy', 'IT'],
         ['Jamaica', 'JM'],
         ['Japan', 'JP'],
         ['Jersey', 'JE'],
@@ -1079,7 +1079,7 @@
         ['Philippines', 'PH'],
         ['Pitcairn', 'PN'],
         ['Poland', 'PL'],
-        ['Portugal', 'PT', ['Azores', 'Madeira']],
+        ['Portugal', 'PT'],
         ['Puerto Rico', 'PR'],
         ['Qatar', 'QA'],
         ['Réunion', 'RE'],
@@ -1110,7 +1110,7 @@
         ['South Africa', 'ZA'],
         ['South Georgia and the South Sandwich Islands', 'GS'],
         ['South Sudan', 'SS'],
-        ['Spain', 'ES', ['Canary Islands', 'Ceuta', 'Melilla']],
+        ['Spain', 'ES'],
         ['Sri Lanka', 'LK'],
         ['Sudan', 'SD'],
         ['Suriname', 'SR'],
@@ -1136,7 +1136,7 @@
         ['Uganda', 'UG'],
         ['Ukraine', 'UA'],
         ['United Arab Emirates', 'AE'],
-        ['United Kingdom', 'GB', ['Akrotiri', 'Dhekelia']],
+        ['United Kingdom', 'GB'],
         ['United States', 'US'],
         ['United States Minor Outlying Islands', 'UM'],
         ['Uruguay', 'UY'],
@@ -1152,6 +1152,19 @@
         ['Zambia', 'ZM'],
         ['Zimbabwe', 'ZW']
     ];
+
+
+    // An object with keys being two-character country codes and values being
+    // an array of VAT exceptions for that country
+    var EXCEPTIONS_BY_COUNTRY = {
+        'AT': ['Jungholz', 'Mittelberg'],
+        'DE': ['Büsingen am Hochrhein', 'Heligoland'],
+        'ES': ['Canary Islands', 'Ceuta', 'Melilla'],
+        'GB': ['Akrotiri', 'Dhekelia'],
+        'GR': ['Mount Athos'],
+        'IT': ["Campione d'Italia", 'Livigno'],
+        'PT': ['Azores', 'Madeira']
+    };
 
 
     // A dictionary of countries, each being dictionary with keys that are either
@@ -1516,13 +1529,25 @@
     declaredResidence.options = function() {
         var output = [];
         for (var i = 0; i < RESIDENCE_OPTIONS.length; i++) {
+            var info = RESIDENCE_OPTIONS[i];
             output.push({
-                name: RESIDENCE_OPTIONS[i][0],
-                code: RESIDENCE_OPTIONS[i][1],
-                exceptions: RESIDENCE_OPTIONS[i][2] || []
+                name: info[0],
+                code: info[1],
+                exceptions: EXCEPTIONS_BY_COUNTRY[info[1]] || []
             });
         }
         return output;
+    }
+
+
+    /**
+     * Return an array of exception names for a country
+     #
+     # @param  {string}  countryCode  The two-character country code
+     * @return {array}  An array of {string} exception names
+     */
+    declaredResidence.exceptionsByCountry = function(countryCode) {
+        return EXCEPTIONS_BY_COUNTRY[countryCode] || [];
     }
 
 

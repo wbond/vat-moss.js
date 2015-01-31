@@ -62,3 +62,23 @@ exports.calculateRate = dataprovider(
         test.done();
     }
 );
+
+exports.exceptionsByCountry = dataprovider(
+    [
+        ['AT', ['Jungholz', 'Mittelberg']],
+        ['DE', ['Büsingen am Hochrhein', 'Heligoland']],
+        ['ES', ['Canary Islands', 'Ceuta', 'Melilla']],
+        ['GB', ['Akrotiri', 'Dhekelia']],
+        ['GR', ['Mount Athos']],
+        ['IT', ["Campione d'Italia", 'Livigno']],
+        ['PT', ['Azores', 'Madeira']],
+        ['US', []],
+        ['IM', []],
+    ],
+
+    function (test, data) {
+        var res = vatMoss.declaredResidence.exceptionsByCountry(data[0]);
+        test.deepEqual(data[1], res);
+        test.done();
+    }
+);
