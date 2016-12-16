@@ -1,0 +1,30 @@
+{
+  "name": "vat-moss.js",
+  "version": "1.0.0",
+  "description": "A Javascript library for dealing with VAT MOSS and Norway VAT on digital services. Includes VAT ID checking, rate calculation based on place of supply, exchange rate and currency tools for invoices.",
+  "main": "vat-moss.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "node tests.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wbond/vat-moss.js.git"
+  },
+  "keywords": [
+    "VAT"
+  ],
+  "bugs": {
+    "url": "https://github.com/wbond/vat-moss.js/issues"
+  },
+  "homepage": "https://github.com/wbond/vat-moss.js#readme",
+  "dependencies": {
+    "big.js": "^3.1.3"
+  },
+  "devDependencies": {
+    "nodeunit": "^0.9.1",
+    "nodeunit-dataprovider": "0.0.1"
+  }
+}
