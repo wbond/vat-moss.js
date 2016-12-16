@@ -1,5 +1,5 @@
 {
-  "name": "vat-moss.js",
+  "name": "vat-moss",
   "version": "1.0.0",
   "description": "A Javascript library for dealing with VAT MOSS and Norway VAT on digital services. Includes VAT ID checking, rate calculation based on place of supply, exchange rate and currency tools for invoices.",
   "main": "vat-moss.js",
