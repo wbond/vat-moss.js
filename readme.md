@@ -19,6 +19,12 @@ EU. This was primarily built to support companies selling software licenses or
 SaaS. *Ebook tax rates may be different - this library does not currently
 differentiate for those.*
 
+## Installation
+
+```
+npm install vat-moss
+```
+
 ## Resources
 
 In the process of writing this library, I performed quite a bit of research
