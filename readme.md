@@ -13,8 +13,8 @@ software to customers in the EU and Norway. Functionality includes:
    - Configuring exchange rate information for the *bigmoney.js* library
    - Formatting foreign currencies when displaying VAT tax due in national currency
 
-This library has codified all of the standard rate VAT tax rules as of January
-2015, and includes code to handle the various VAT exemptions that occur in the
+This library has codified all of the standard rate VAT tax rules as of December
+2017, and includes code to handle the various VAT exemptions that occur in the
 EU. This was primarily built to support companies selling software licenses or
 SaaS. *Ebook tax rates may be different - this library does not currently
 differentiate for those.*
