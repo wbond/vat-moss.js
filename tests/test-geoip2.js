@@ -36,8 +36,8 @@ exports.calculateRate = dataprovider(
         ['GB', 'England',                   'London',                  'GB', null,                      Big('0.20'), 'GB', null],
 
         ['GR', 'Central Macedonia',         'Ormylia',                 'GR', 'Mount Athos',             Big('0.0'),  'GR', 'Mount Athos'],
-        ['GR', 'Central Macedonia',         'Ormylia',                 'GR', null,                      Big('0.23'), 'GR', null],
-        ['GR', 'Attica',                    'Athens',                  'GR', null,                      Big('0.23'), 'GR', null],
+        ['GR', 'Central Macedonia',         'Ormylia',                 'GR', null,                      Big('0.24'), 'GR', null],
+        ['GR', 'Attica',                    'Athens',                  'GR', null,                      Big('0.24'), 'GR', null],
 
         ['HR', 'Grad Zagreb',               'Zagreb',                  'HR', null,                      Big('0.25'), 'HR', null],
         ['HU', 'Budapest fovaros',          'Budapest',                'HU', null,                      Big('0.27'), 'HU', null],
@@ -51,7 +51,7 @@ exports.calculateRate = dataprovider(
         ['IT', 'Lombardy',                  'Cologne',                 'IT', null,                      Big('0.22'), 'IT', null],
 
         ['LT', 'Vilnius County',            'Vilnius',                 'LT', null,                      Big('0.21'), 'LT', null],
-        ['LU', 'District de Luxembourg',    'Luxembourg',              'LU', null,                      Big('0.15'), 'LU', null],
+        ['LU', 'District de Luxembourg',    'Luxembourg',              'LU', null,                      Big('0.17'), 'LU', null],
         ['LV', 'Riga',                      'Riga',                    'LV', null,                      Big('0.21'), 'LV', null],
         ['MT', 'Il-Belt Valletta',          'Valletta',                'MT', null,                      Big('0.18'), 'MT', null],
         ['NL', 'North Holland',             'Amsterdam',               'NL', null,                      Big('0.21'), 'NL', null],
@@ -63,7 +63,7 @@ exports.calculateRate = dataprovider(
         ['PT', 'Madeira',                   'Santa Cruz',              'PT', null,                      Big('0.0'),  'PT', 'Madeira'],
         ['PT', 'Lisbon',                    'Lisbon',                  'PT', null,                      Big('0.23'), 'PT', null],
 
-        ['RO', 'Bucuresti',                 'Bucharest',               'RO', null,                      Big('0.24'), 'RO', null],
+        ['RO', 'Bucuresti',                 'Bucharest',               'RO', null,                      Big('0.19'), 'RO', null],
         ['SE', 'Stockholm',                 'Stockholm',               'SE', null,                      Big('0.25'), 'SE', null],
         ['SI', '',                          'Ljubljana',               'SI', null,                      Big('0.22'), 'SI', null],
         ['SK', 'Bratislavsky kraj',         'Bratislava',              'SK', null,                      Big('0.20'), 'SK', null],

@@ -39,8 +39,8 @@ exports.calculateRate = dataprovider(
         ['+44 20 7229 8331',   'GB', null,                      Big('0.20'), 'GB', null],
 
         ['+30 2377 023643',    'GR', 'Mount Athos',             Big('0.0'),  'GR', 'Mount Athos'],
-        ['+30 2377 071189',    'GR', null,                      Big('0.23'), 'GR', null],
-        ['+30 21 3214 4890',   'GR', null,                      Big('0.23'), 'GR', null],
+        ['+30 2377 071189',    'GR', null,                      Big('0.24'), 'GR', null],
+        ['+30 21 3214 4890',   'GR', null,                      Big('0.24'), 'GR', null],
 
         ['+385 1 4564 111',    'HR', null,                      Big('0.25'), 'HR', null],
         ['+36 1 263 6000',     'HU', null,                      Big('0.27'), 'HU', null],
@@ -53,7 +53,7 @@ exports.calculateRate = dataprovider(
         ['+39 06 49971',       'IT', null,                      Big('0.22'), 'IT', null],
 
         ['+370 5 231 4930',    'LT', null,                      Big('0.21'), 'LT', null],
-        ['+352 22 28 09',      'LU', null,                      Big('0.15'), 'LU', null],
+        ['+352 22 28 09',      'LU', null,                      Big('0.17'), 'LU', null],
         ['+371 26 448 632',    'LV', null,                      Big('0.21'), 'LV', null],
         ['+356 2122 0536',     'MT', null,                      Big('0.18'), 'MT', null],
         ['+31 20 522 1010',    'NL', null,                      Big('0.21'), 'NL', null],
@@ -63,7 +63,7 @@ exports.calculateRate = dataprovider(
         ['+351 291 215 130',   'PT', 'Madeira',                 Big('0.0'),  'PT', 'Madeira'],
         ['+351 21 346 1381',   'PT', null,                      Big('0.23'), 'PT', null],
 
-        ['+40 21 310 1522',    'RO', null,                      Big('0.24'), 'RO', null],
+        ['+40 21 310 1522',    'RO', null,                      Big('0.19'), 'RO', null],
         ['+46 8 402 61 30',    'SE', null,                      Big('0.25'), 'SE', null],
         ['+386 1 585 27 56',   'SI', null,                      Big('0.22'), 'SI', null],
         ['+421 2/524 929 73',  'SK', null,                      Big('0.20'), 'SK', null],
