@@ -148,7 +148,7 @@
             }
         },
         GR: { // Greece
-            rate: Big('0.23'),
+            rate: Big('0.24'),
             exceptions: {
                 'Mount Athos': Big('0.0')
             }
@@ -173,7 +173,7 @@
             rate: Big('0.21')
         },
         LU: { // Luxembourg
-            rate: Big('0.15')
+            rate: Big('0.17')
         },
         LV: { // Latvia
             rate: Big('0.21')
@@ -195,7 +195,7 @@
             }
         },
         RO: { // Romania
-            rate: Big('0.24')
+            rate: Big('0.19')
         },
         SE: { // Sweden
             rate: Big('0.25')
