@@ -36,7 +36,7 @@ exports.calculateRate = dataprovider(
 
         ['+358 20 7590317',    'FI', null,                      Big('0.24'), 'FI', null],
         ['+33 1 40 46 79 00',  'FR', null,                      Big('0.20'), 'FR', null],
-        ['+44 20 7229 8331',   'GB', null,                      Big('0.20'), 'GB', null],
+        ['+44 20 7229 8331',   'GB', null,                      Big('0.0'), 'GB', null],
 
         ['+30 2377 023643',    'GR', 'Mount Athos',             Big('0.0'),  'GR', 'Mount Athos'],
         ['+30 2377 071189',    'GR', null,                      Big('0.24'), 'GR', null],
@@ -68,7 +68,7 @@ exports.calculateRate = dataprovider(
         ['+386 1 585 27 56',   'SI', null,                      Big('0.22'), 'SI', null],
         ['+421 2/524 929 73',  'SK', null,                      Big('0.20'), 'SK', null],
         ['+377 93 15 29 40',   'MC', null,                      Big('0.20'), 'MC', null],
-        ['+44 1624 664455',    'IM', null,                      Big('0.20'), 'IM', null],
+        ['+44 1624 664455',    'IM', null,                      Big('0.0'), 'IM', null],
         ['+47 21 42 21 21',    'NO', null,                      Big('0.25'), 'NO', null],
 
         ['+1-978-572-0330',    'US', null,                      Big('0.0'),  'US', null],

@@ -33,7 +33,7 @@ exports.calculateRate = dataprovider(
 
         ['FI', '',                          'Helsinki',                'FI', null,                      Big('0.24'), 'FI', null],
         ['FR', 'Île-de-France',             'Paris',                   'FR', null,                      Big('0.20'), 'FR', null],
-        ['GB', 'England',                   'London',                  'GB', null,                      Big('0.20'), 'GB', null],
+        ['GB', 'England',                   'London',                  'GB', null,                      Big('0.0'), 'GB', null],
 
         ['GR', 'Central Macedonia',         'Ormylia',                 'GR', 'Mount Athos',             Big('0.0'),  'GR', 'Mount Athos'],
         ['GR', 'Central Macedonia',         'Ormylia',                 'GR', null,                      Big('0.24'), 'GR', null],
@@ -69,7 +69,7 @@ exports.calculateRate = dataprovider(
         ['SK', 'Bratislavsky kraj',         'Bratislava',              'SK', null,                      Big('0.20'), 'SK', null],
 
         ['MC', 'Monaco',                    'Monaco',                  'MC', null,                      Big('0.20'), 'MC', null],
-        ['IM', '',                          'Douglas',                 'IM', null,                      Big('0.20'), 'IM', null],
+        ['IM', '',                          'Douglas',                 'IM', null,                      Big('0.0'), 'IM', null],
 
         ['NO', 'Oslo County',               'Oslo',                    'NO', null,                      Big('0.25'), 'NO', null],
 
