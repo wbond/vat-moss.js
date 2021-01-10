@@ -82,7 +82,6 @@
     //   Special VAT Rates
     //
     //     Monaco - France - 20%
-    //     Isle of Man - United Kingdom - 20%
     //     Azores - Portugal - 18%
     //     Madeira - Portugal - 22%
     //     Akrotiri - Cyprus - 19%
@@ -140,7 +139,7 @@
             rate: Big('0.20')
         },
         GB: { // United Kingdom
-            rate: Big('0.20'),
+            rate: Big('0.0'),
             exceptions: {
                 // UK RAF Bases in Cyprus are taxed at Cyprus rate
                 'Akrotiri': [Big('0.19'), 'CY', null],
@@ -209,9 +208,6 @@
 
         // Countries associated with EU countries that have a special VAT rate
         MC: { // Monaco - France
-            rate: Big('0.20')
-        },
-        IM: { // Isle of Man - United Kingdom
             rate: Big('0.20')
         },
 
